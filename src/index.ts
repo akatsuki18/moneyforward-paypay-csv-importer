@@ -2,14 +2,29 @@ import { chromium } from 'playwright';
 import { PayPayCSVParser } from './services/csv-parser';
 import { MoneyForwardService } from './services/moneyforward-service';
 import 'dotenv/config';
+import * as readline from 'readline';
+
+async function prompt(question: string): Promise<string> {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => {
+      rl.close();
+      resolve(answer);
+    });
+  });
+}
 
 async function main() {
-  const csvFilePath = process.env.CSV_FILE_PATH;
+  // CSVファイルのパスをCUIで入力
+  const csvFilePath = await prompt('CSVファイルのパスを入力してください: ');
   const email = process.env.MONEYFORWARD_EMAIL;
   const password = process.env.MONEYFORWARD_PASSWORD;
 
   if (!csvFilePath || !email || !password) {
-    throw new Error('環境変数が設定されていません。.envファイルを確認してください。');
+    throw new Error('CSVファイルのパスまたは環境変数が設定されていません。');
   }
 
   // CSVファイルの読み込み
