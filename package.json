@@ -5,7 +5,8 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "playwright install"
   },
   "keywords": [],
   "author": "",
@@ -15,11 +16,11 @@
     "@types/node": "^20.11.30",
     "csv-parse": "^5.5.5",
     "dotenv": "^16.4.5",
-    "playwright": "^1.42.1",
     "typescript": "^5.4.2"
   },
   "devDependencies": {
     "@types/csv-parse": "^1.2.2",
+    "playwright": "^1.42.1",
     "ts-node": "^10.9.2"
   }
 }
